@@ -1,0 +1,37 @@
+
+.taskInputForm {
+  display: grid;
+  grid-template-columns: 1fr 130px ;
+  gap: 0.5rem;
+}
+
+.taskInputForm input {
+  width: 100%;
+  background: var(--gray-500);
+  border: 0;
+  padding: 1rem;
+  border-radius: 8px;
+  color: var(--gray-100);
+  line-height: 1.4;
+}
+
+.taskInputForm button[type=submit] {
+  padding: 1rem;
+  border-radius: 8px;
+  border: 0;
+  background: var(--blue-dark);
+  color: var(--gray-100);
+  font-weight: bold;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  transition: background-color 0.1s;
+}
+
+.taskInputForm button[type=submit]:hover {
+  background: var(--blue);
+}
