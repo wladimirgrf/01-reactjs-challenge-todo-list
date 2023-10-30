@@ -33,7 +33,7 @@
 }
 
 .taskNotDoneButton:hover {
-  color: var(--dark-blue);
+  color: var(--blue-dark);
 }
 
 .taskDoneButton {

@@ -4,13 +4,13 @@ import { useState } from 'react';
 import styles from './Task.module.css'
 
 export interface TaskType {
-  id: number;
+  id: string;
   state: 'todo' | 'done';
   description: string;
 }
 
 export interface TaskProps extends TaskType {
-  onDeleteTask: (id: number) => void
+  onDeleteTask: (id: string) => void
 }
 
 export function Task({ id, state, description, onDeleteTask }: TaskProps) {

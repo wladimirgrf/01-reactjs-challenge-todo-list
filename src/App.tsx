@@ -2,6 +2,7 @@
 import './global.css'
 
 import { useState } from 'react'
+import { v4 as uuidV4 } from 'uuid'
 
 import styles from './App.module.css'
 import { Header } from './components/Header'
@@ -10,20 +11,19 @@ import { Task, TaskType } from './components/Task'
 
 
 function App() {
-  const [tasks, setTasks] = useState<TaskType[]>([
-    {
-      id: 1,
-      description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem eius, repellendus consectetur labore nemo sunt iusto nobis molestias praesentium, corrupti aperiam. Dolore mollitia aliquid, vel accusamus deserunt velit ratione suscipit.',
-      state: 'todo'
-    },
-    {
-      id: 2,
-      description: 'Desc 2',
-      state: 'done'
-    }
-  ])
+  const [tasks, setTasks] = useState<TaskType[]>([])
 
-  function deleteTask(id: number) {
+  function addTask(newTaskText: string) {
+    const newTask: TaskType = {
+      id: uuidV4(),
+      state: 'todo',
+      description: newTaskText
+    }
+
+    setTasks([...tasks, newTask])
+  }
+
+  function deleteTask(id: string) {
     const  tasksWithoutDeleteOne = tasks.filter(task => {
       return task.id !== id
     })
@@ -36,7 +36,9 @@ function App() {
       <Header />
 
       <div className={styles.wrapper}>
-        <TaskInput />
+        <TaskInput
+          onAddTask={addTask}
+        />
 
         <main>
           <div className={styles.taskList}>
