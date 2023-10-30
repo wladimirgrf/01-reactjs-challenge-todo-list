@@ -1,11 +1,15 @@
 .task {
-  background: var(--gray-400);
-  margin-top: 1.5rem;
+  background: var(--gray-500);
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 1rem;
   padding: 1rem;
+  border-radius: 8px;
+}
+
+.task + .task {
+  margin-top: 0.75rem;
 }
 
 .taskBox {
@@ -17,7 +21,6 @@
 .taskBox span {
   font-size: 0.875rem;
   line-height: 1.4;
-  color: var(--gray-100);
 }
 
 .taskBox button {
@@ -28,20 +31,29 @@
   border-radius: 2px;
 }
 
-.taskNotDoneButton {
+.notDoneButton {
   color: var(--blue);
 }
 
-.taskNotDoneButton:hover {
+.notDoneButton:hover {
   color: var(--blue-dark);
 }
 
-.taskDoneButton {
+.notDoneDescription {
+  color: var(--gray-100);
+}
+
+.doneButton {
   color: var(--purple-dark);
 }
 
-.taskDoneButton:hover {
+.doneButton:hover {
   color: var(--purple);
+}
+
+.doneDescription {
+  text-decoration: line-through;
+  color: var(--gray-300);
 }
 
 .taskRemoveButton {

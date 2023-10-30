@@ -12,7 +12,17 @@ import { Task, TaskType } from './components/Task'
 
 function App() {
   const [tasks, setTasks] = useState<TaskType[]>([])
+  
+  const [totalNumberOfTasks, setTotalNumberOfTasks] = useState(0)
+  const [numberOfTasksCompleted, setNumberOfTasksCompleted] = useState(0)
 
+  function updateReport(updatedTasks: TaskType[]) {
+    setTotalNumberOfTasks(updatedTasks.length)
+
+    const tasksCompleted = updatedTasks.filter(task => task.state === 'done')
+    setNumberOfTasksCompleted(tasksCompleted.length)
+  }
+  
   function addTask(newTaskText: string) {
     const newTask: TaskType = {
       id: uuidV4(),
@@ -20,7 +30,10 @@ function App() {
       description: newTaskText
     }
 
-    setTasks([...tasks, newTask])
+    const updatedTasks = [...tasks, newTask];
+
+    setTasks(updatedTasks)
+    updateReport(updatedTasks)
   }
 
   function deleteTask(id: string) {
@@ -29,6 +42,20 @@ function App() {
     })
 
     setTasks(tasksWithoutDeleteOne)
+    updateReport(tasksWithoutDeleteOne)
+  }
+
+  function toggleTask(id: string) {
+    const updatedTasks = tasks.map(task => {
+      if(task.id === id){
+        task.state = task.state === 'done' ? 'todo' : 'done'
+      }
+
+      return task
+    });
+
+    setTasks(updatedTasks)
+    updateReport(updatedTasks)
   }
 
   return (
@@ -36,11 +63,21 @@ function App() {
       <Header />
 
       <div className={styles.wrapper}>
-        <TaskInput
-          onAddTask={addTask}
-        />
+        <TaskInput onAddTask={addTask} />
 
         <main>
+          <div className={styles.report}>
+            <div>
+              <strong>Tasks</strong>
+              <span>{totalNumberOfTasks}</span>
+            </div>
+
+            <div>
+              <strong>Done</strong>
+              <span>{totalNumberOfTasks === 0 ? '0' : `${numberOfTasksCompleted} of ${totalNumberOfTasks}`}</span>
+            </div>
+          </div>
+
           <div className={styles.taskList}>
             {tasks.map(task => {
               return (
@@ -50,6 +87,7 @@ function App() {
                   state={task.state}
                   description={task.description} 
                   onDeleteTask={deleteTask}
+                  onToggleTask={toggleTask}
                 />
               )
             })}

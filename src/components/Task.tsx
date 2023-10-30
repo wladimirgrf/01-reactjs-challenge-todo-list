@@ -1,5 +1,4 @@
 import { Circle, CheckCircle, Trash } from '@phosphor-icons/react';
-import { useState } from 'react';
 
 import styles from './Task.module.css'
 
@@ -11,14 +10,12 @@ export interface TaskType {
 
 export interface TaskProps extends TaskType {
   onDeleteTask: (id: string) => void
+  onToggleTask: (id: string) => void
 }
 
-export function Task({ id, state, description, onDeleteTask }: TaskProps) {
-  const [taskState, setTaskState] = useState(state)
-
+export function Task({ id, state, description, onDeleteTask, onToggleTask }: TaskProps) {
   function handleToggleTask() {
-    const newState = taskState === 'done' ? 'todo' : 'done';
-    setTaskState(newState)
+    onToggleTask(id)
   }
 
   function handleDeleteTask() {
@@ -29,16 +26,18 @@ export function Task({ id, state, description, onDeleteTask }: TaskProps) {
     <div className={styles.task}>
       <div className={styles.taskBox}>
         <button 
-          className={taskState === 'done' ? styles.taskDoneButton : styles.taskNotDoneButton} 
+          className={state === 'done' ? styles.doneButton : styles.notDoneButton} 
           title='Toggle task'
           onClick={handleToggleTask}
         >
-          { taskState === 'done' 
+          { state === 'done' 
             ? <CheckCircle size={20} weight='fill' /> 
             : <Circle size={20} />
           }
         </button>
-        <span>{taskState === 'done' ? <del>{description}</del> : description}</span>
+        <span className={state === 'done' ? styles.doneDescription : styles.notDoneDescription}>
+          {description}
+        </span>
       </div>
 
       <button 

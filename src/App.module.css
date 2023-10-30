@@ -4,6 +4,34 @@
   margin: -1.688rem auto;
 }
 
+.wrapper main {
+  margin: 4rem 0;
+}
+
 .taskList {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
+}
+
+.report {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+}
+
+.report div span {
+  background: var(--gray-400);
+  color: var(--gray-200);
+  padding: 0.125rem 0.5rem;
+  border-radius: 16px;
+  font-weight: bold;
+}
+
+.report div:first-child strong {
+  color: var(--blue);
+  margin-right: 0.5rem;
+}
+
+.report div:last-child strong {
+  color: var(--purple);
+  margin-right: 0.5rem;
 }
