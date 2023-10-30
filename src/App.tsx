@@ -8,6 +8,7 @@ import styles from './App.module.css'
 import { Header } from './components/Header'
 import { TaskInput } from './components/TaskInput'
 import { Task, TaskType } from './components/Task'
+import { BlankBoard } from './components/BlankBoard'
 
 
 function App() {
@@ -78,20 +79,24 @@ function App() {
             </div>
           </div>
 
-          <div className={styles.taskList}>
-            {tasks.map(task => {
-              return (
-                <Task 
-                  key={task.id}
-                  id={task.id}
-                  state={task.state}
-                  description={task.description} 
-                  onDeleteTask={deleteTask}
-                  onToggleTask={toggleTask}
-                />
-              )
-            })}
-          </div>
+          {totalNumberOfTasks > 0 ? 
+            <div className={styles.taskList}>
+              {tasks.map(task => {
+                return (
+                  <Task 
+                    key={task.id}
+                    id={task.id}
+                    state={task.state}
+                    description={task.description} 
+                    onDeleteTask={deleteTask}
+                    onToggleTask={toggleTask}
+                  />
+                )
+              })}
+            </div>
+            :
+            <BlankBoard />
+           }
         </main>
       </div>
     </>
